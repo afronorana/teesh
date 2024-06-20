@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vite + Vue</title>
+
+    <script>
+    let serverurl="./";
+     let modelList = JSON.stringify({models:[{name:"Girls T-Shirts",id:"girls-t",url:serverurl+"models/girls-t.glb",print:!1,scale:65},{name:"Mens T-shirts",id:"mens_t_shirts",url:serverurl+"models/mens.glb",print:!1,scale:65},{name:"Hoodies shirts",id:"hoodies_t_shirts",url:serverurl+"models/hoodies.glb",print:!1,scale:58}]});
+     let modelurl="./models/tshirt_teeshot.glb";
+     let tshirtsColorsList=JSON.stringify([{value:"222f3e"},{value:"da291c"},{value:"f7b500"},{value:"cccac9"},{value:"ffc0cb"},{value:"ad88c6"}]);
+     let backgroundImageList=JSON.stringify({background:[{name:"pexels-photo",id:"pexels-photo",image:serverurl+"background/thumbnail/pexels-photo.jpeg",url:serverurl+"background/600/pexels-photo-1072179-600.jpeg",type:"image",color:""},{name:"pexels-asad-photo-maldives",id:"pexels-asad-photo-maldives",image:serverurl+"background/thumbnail/pexels-asad-photo-maldives.jpeg",url:serverurl+"background/600/pexels-photo-457882-2-2.jpeg",type:"image",color:""},{name:"pexels-marc-mueller",id:"pexels-marc-mueller",image:serverurl+"background/thumbnail/pexels-marc-mueller.jpg",url:serverurl+"background/600/pexels-marc-mueller-380768.jpg",type:"image",color:""},{name:"pexels-shonejai",id:"pexels-shonejai",image:serverurl+"background/thumbnail/pexels-shonejai.jpg",url:serverurl+"background/600/pexels-shonejai.jpg",type:"image",color:""}]})
+     </script>
+     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+
+  </head>
+  <body>
+
+ 
+    <div class="container-fluid">
+      <img id="image">
+      <canvas id="textCanvas"></canvas>
+      <div class="LoadingGif hide" id="LoadingGif"><img id="loadingImg" src="./assets/loading.gif"></div>
+      <div id="logo" class="logo" alt="craftpixels logo"></div>
+      <input id="myInput" type="file" style="visibility:hidden;display:none">
+      <div class="row d-flex justify-content-center">
+         <div class="col-md-6 p-relative" id="previewCanvas">
+            <div class="backgroundPreview" id="backgroundPreview" style="background-image: url(&quot;./background/600/pexels-photo-1072179-600.jpeg&quot;);"></div>
+            <canvas class="webgl" data-engine="three.js r148" width="406" height="450" style="width: 406px; height: 450px;"></canvas>
+         </div>
+         <div class="col-md-5 p-relative" id="settingsPanelLayout">
+            <div class="row">
+               <div class="col-md-12 p-relative" id="settingsPanel"><div class="row">
+ <div class="col-md-12">
+     <label class="label title">
+         Model Selection
+     </label>
+     <select class="form-select" id="modelSelection">
+         <option value="girls-t">Girls T-Shirts</option>
+         <option value="mens_t_shirts">Mens T-shirts</option>
+         <option value="hoodies_t_shirts">Hoodies shirts</option>
+     </select>
+ </div>
+ <div class="col-md-12">
+     <label class="label title">
+         Style Statement
+     </label>
+     <ul class="backgroudlist">
+         <li class="matclick active" id="pexels-photo" data-url="./background/600/pexels-photo-1072179-600.jpeg" data-id="pexels-photo" data-type="image" data-color="" data--did="pexels-photo" data--durl="./background/600/pexels-photo-1072179-600.jpeg" data--dtype="image" data--dcolor=""><img src="./background/thumbnail/pexels-photo.jpeg">
+         </li>
+         <li class="matclick" id="pexels-asad-photo-maldives" data-url="./background/600/pexels-photo-457882-2-2.jpeg" data-id="pexels-asad-photo-maldives" data-type="image" data-color="" data--did="pexels-asad-photo-maldives" data--durl="./background/600/pexels-photo-457882-2-2.jpeg" data--dtype="image" data--dcolor=""><img src="./background/thumbnail/pexels-asad-photo-maldives.jpeg">
+         </li>
+         <li class="matclick" id="pexels-marc-mueller" data-url="./background/600/pexels-marc-mueller-380768.jpg" data-id="pexels-marc-mueller" data-type="image" data-color="" data--did="pexels-marc-mueller" data--durl="./background/600/pexels-marc-mueller-380768.jpg" data--dtype="image" data--dcolor=""><img src="./background/thumbnail/pexels-marc-mueller.jpg">
+         </li>
+         <li class="matclick" id="pexels-shonejai" data-url="./background/600/pexels-shonejai.jpg" data-id="pexels-shonejai" data-type="image" data-color="" data--did="pexels-shonejai" data--durl="./background/600/pexels-shonejai.jpg" data--dtype="image" data--dcolor=""><img src="./background/thumbnail/pexels-shonejai.jpg">
+         </li>
+     </ul>
+ </div>
+
+ <div class="col-md-12 mt32">
+     <label class="label title">
+         Tee’s Color
+     </label>
+     <ul class="colorlist">
+         <li class="colorclick active" id="Colors_222f3e" data-color="222f3e" data-id="222f3e" data--did="222f3e" data--dcolor="222f3e"><span style="background-color: #222f3e;">
+         </span></li>
+         <li class="colorclick" id="Colors_f7b500" data-color="f7b500" data-id="f7b500" data--did="f7b500" data--dcolor="f7b500"><span style="background-color: #f7b500;">
+         </span></li>
+         <li class="colorclick" id="Colors_da291c" data-color="da291c" data-id="da291c" data--did="da291c" data--dcolor="da291c"><span style="background-color: #da291c;">
+         </span></li>
+         <li class="colorclick" id="Colors_cccac9" data-color="cccac9" data-id="cccac9" data--did="cccac9" data--dcolor="cccac9"><span style="background-color: #cccac9;">
+         </span></li>
+         <li class="colorclick" id="Colors_ffc0cb" data-color="ffc0cb" data-id="ffc0cb" data--did="ffc0cb" data--dcolor="ffc0cb"><span style="background-color: #ffc0cb;">
+         </span></li>
+         <li class="colorclick" id="Colors_ad88c6" data-color="ad88c6" data-id="ad88c6" data--did="ad88c6" data--dcolor="ad88c6"><span style="background-color: #ad88c6;">
+         </span></li>
+     </ul>
+ </div>
+
+
+ <div class="col-md-12 mt32">
+     <label class="label title">
+         Upload Your Design
+     </label>
+     <span class="decalpreview">
+         <ul class="previewimagelist" id="previewimagelist"></ul>
+
+     </span>
+     <ul class="list-buttons">
+
+         <li>
+             <a href="#" class="btn btn-outline-dark uploadDesignbtn" id="uploadDesignbtn"> Add</a>
+
+         </li>
+
+         <li>
+             <a href="#" class="btn btn-outline-dark rotatebtn right decalshow"> <img src="./assets/right.png"></a>
+
+         </li>
+
+
+         <li>
+             <a href="#" class="btn btn-outline-dark removeDesignbtn decalshow" id="removeDesignbtn"> Del</a>
+         </li>
+     </ul>
+     <ul class="list-buttons mt32 decalshow">
+         <li>
+             <div class="printDesignLayout">
+                 <span>Printable Image size</span>
+                 <p class="label" id="printSizeTxt"></p>
+             </div>
+         </li>
+         <li>
+             <a href="#" class="btn btn-outline-dark scalebtn" data-type="down"> - </a>
+
+         </li>
+         <li>
+             <a href="#" class="btn btn-outline-dark scalebtn" data-type="up"> + </a>
+
+         </li>
+     </ul>
+
+
+ </div>
+
+ <div class="col-md-12 mt32">
+     <label class="label title">
+         Add Text
+     </label>
+ </div>
+
+ <div class="col-md-12 mt32" id="TextListLayout"><ul class="textlayoutul" id="1718832343747"><li>
+ <input type="text" name="text[]" class="textInput form-control" id="TextInput_1718832343747" data-id="1718832343747" placeholder="Enter text" value="" autocomplete="off">
+</li>
+<li>
+ <select id="ChooseFontSize_1718832343747" class="form-select ChooseFontSize" data-id="1718832343747">
+     <option value="16" selected="">16 pt</option>
+     <option value="18">18 pt</option>
+     <option value="24">24 pt</option>
+     <option value="32">32 pt</option>
+     <option value="36">36 pt</option>
+     <option value="48">48 pt</option>
+     <option value="60">60 pt</option>
+ </select>
+</li>
+<li>
+ <select id="ChooseFontFamily_1718832343747" class="form-select ChooseFontFamily" data-id="1718832343747">
+     <option value="Montserrat-Regular" selected="">Montserrat-Regular</option>
+     <option value="SixCaps-Regular">SixCaps-Regular</option>
+     <option value="Condiment-Regular">Condiment-Regular</option>
+ </select>
+</li>
+<li>
+ <a href="#" class="btn btn-outline-dark addTextBtn"> + </a>
+</li>
+<li>
+ <a href="#" class="btn btn-outline-dark textrotatebtn right" data-id="1718832343747" id="rotatebtn_1718832343747"> <img src="./assets/right.png" data-id="1718832343747"></a>
+
+</li>
+<li>
+ <a href="#" class="btn btn-outline-dark removeTextDesignbtn" data-id="1718832343747" data-flags="yes" id="removeTextDesignbtn_1718832343747">
+     Del</a>
+</li></ul></div>
+
+
+</div></div>
+            </div>
+         </div>
+      </div>
+   </div>
+
+
+
+    <div id="app">
+
+      
+    </div>
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
